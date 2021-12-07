@@ -1,11 +1,15 @@
 // Shoot Them Up Game, All Rights Reserved.
 
 using UnrealBuildTool;
+using System;
 
 public class ShootThemUp : ModuleRules
 {
     public ShootThemUp(ReadOnlyTargetRules Target) : base(Target)
     {
+        Console.WriteLine("STU module rules ------------->");
+        Console.WriteLine("Unreal version {0}.{1}.{2}", Target.Version.MajorVersion, Target.Version.MinorVersion, Target.Version.PatchVersion);
+
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[]
