@@ -9,7 +9,7 @@
 #include "ShootThemUp/Public/Tests/TestUtils.h"
 #include "STUPlayerCharacter.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FComponentCouldBeCreated, "STUGame.Components.Health.ComponentCouldBeCreated",
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthComponentCouldBeCreated, "STUGame.Components.Health.HealthComponentCouldBeCreated",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter | EAutomationTestFlags::HighPriority);
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthShouldBeZeroByDefault, "STUGame.Components.Health.HealthShouldBeZeroByDefault",
@@ -21,7 +21,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthShouldNotBeAddedToDead, "STUGame.Compone
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthShouldBeAddedToAlive, "STUGame.Components.Health.HealthShouldBeAddedToAlive",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter | EAutomationTestFlags::HighPriority);
 
-bool FComponentCouldBeCreated::RunTest(const FString& Parameters)
+bool FHealthComponentCouldBeCreated::RunTest(const FString& Parameters)
 {
     const USTUHealthComponent* HealthComp = NewObject<USTUHealthComponent>();
     if (!TestNotNull("Health component exists", HealthComp)) return false;
