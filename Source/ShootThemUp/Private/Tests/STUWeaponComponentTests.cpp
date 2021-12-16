@@ -21,7 +21,7 @@ using namespace STU::Tests;
 
 bool FWeaponComponentCouldBeCreated::RunTest(const FString& Parameters)
 {
-    LevelScope("/Game/Levels/TestLevel");
+    LevelScope(FString(TestLevelName));
 
     UWorld* TestWorld = GetTestGameWorld();
     if (!TestNotNull("World exists", TestWorld)) return false;
@@ -41,7 +41,7 @@ bool FWeaponComponentCouldBeCreated::RunTest(const FString& Parameters)
 
 bool FWeaponComponentIsFiring::RunTest(const FString& Parameters)
 {
-    LevelScope("/Game/Levels/TestLevel");
+    LevelScope(FString(TestLevelName));
 
     UWorld* TestWorld = GetTestGameWorld();
     if (!TestNotNull("World exists", TestWorld)) return false;

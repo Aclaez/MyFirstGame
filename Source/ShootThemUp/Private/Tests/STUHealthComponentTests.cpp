@@ -62,7 +62,7 @@ using namespace STU::Tests;
 
 bool FHealthShouldBeAddedToAlive::RunTest(const FString& Parameters)
 {
-    LevelScope("/Game/Levels/TestLevel");
+    LevelScope(FString(TestLevelName));
 
     UWorld* TestWorld = GetTestGameWorld();
     if (!TestNotNull("World exists", TestWorld)) return false;
