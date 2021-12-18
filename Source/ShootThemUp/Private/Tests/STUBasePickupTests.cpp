@@ -2,59 +2,58 @@
 
 #if WITH_AUTOMATION_TESTS
 
-#include "Tests/STUHealthPickupTests.h"
+#include "Tests/STUBasePickupTests.h"
 #include "CoreMinimal.h"
 #include "Misc/AutomationTest.h"
-#include "Pickups/STUHealthPickup.h"
+#include "Pickups/STUBasePickup.h"
 #include "ShootThemUp/Public/Tests/TestUtils.h"
 #include "Components/SphereComponent.h"
-#include "Components/StaticMeshComponent.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthPickupCouldBeCreated, "STUGame.Pickups.Health.HealthPickupCouldBeCreated",
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FBasePickupCouldBeCreated, "STUGame.Pickups.Base.BasePickupCouldBeCreated",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter | EAutomationTestFlags::HighPriority)
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthCollisionShouldBeSetupCorrectly, "STUGame.Pickups.Health.HealthCollisionShouldBeSetupCorrectly",
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPickupCollisionShouldBeSetupCorrectly, "STUGame.Pickups.Base.PickupCollisionShouldBeSetupCorrectly",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter | EAutomationTestFlags::HighPriority)
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthMeshShouldBeSetupCorrectly, "STUGame.Pickups.Health.HealthMeshShouldBeSetupCorrectly",
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FBasePickupCouldBeTaken, "STUGame.Pickups.Base.BasePickupCouldBeTaken",
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter | EAutomationTestFlags::HighPriority)
 
 using namespace STU::Tests;
 
 namespace
 {
-constexpr char* HealthBPName = "Blueprint'/Game/Pickups/BP_STUHealthPickup.BP_STUHealthPickup'";
+constexpr char* BPName = "Blueprint'/Game/Pickups/BP_STUBasePickup.BP_STUBasePickup'";
 }
 
-bool FHealthPickupCouldBeCreated::RunTest(const FString& Parameters)
+bool FBasePickupCouldBeCreated::RunTest(const FString& Parameters)
 {
     LevelScope(FString(TestLevelName));
 
     UWorld* TestWorld = GetTestGameWorld();
     if (!TestNotNull("World exists", TestWorld)) return false;
 
-    const UBlueprint* PickupBlueprint = LoadObject<UBlueprint>(nullptr, *FString(HealthBPName));
+    const UBlueprint* PickupBlueprint = LoadObject<UBlueprint>(nullptr, *FString(BPName));
     if (!TestNotNull("PickupBlueprint exists", PickupBlueprint)) return false;
 
     const FTransform InitialTranform{FVector{100.0f, 100.0f, 130.0f}};
-    const ASTUHealthPickup* Pickup = TestWorld->SpawnActor<ASTUHealthPickup>(PickupBlueprint->GeneratedClass, InitialTranform);
+    const ASTUBasePickup* Pickup = TestWorld->SpawnActor<ASTUBasePickup>(PickupBlueprint->GeneratedClass, InitialTranform);
     if (!TestNotNull("Pickup exists", Pickup)) return false;
 
     return true;
 }
 
-bool FHealthCollisionShouldBeSetupCorrectly::RunTest(const FString& Parameters)
+bool FPickupCollisionShouldBeSetupCorrectly::RunTest(const FString& Parameters)
 {
     LevelScope(FString(TestLevelName));
 
     UWorld* TestWorld = GetTestGameWorld();
     if (!TestNotNull("World exists", TestWorld)) return false;
 
-    const UBlueprint* PickupBlueprint = LoadObject<UBlueprint>(nullptr, *FString(HealthBPName));
+    const UBlueprint* PickupBlueprint = LoadObject<UBlueprint>(nullptr, *FString(BPName));
     if (!TestNotNull("PickupBlueprint exists", PickupBlueprint)) return false;
 
     const FTransform InitialTranform{FVector{100.0f, 100.0f, 130.0f}};
-    const ASTUHealthPickup* Pickup = TestWorld->SpawnActor<ASTUHealthPickup>(PickupBlueprint->GeneratedClass, InitialTranform);
+    const ASTUBasePickup* Pickup = TestWorld->SpawnActor<ASTUBasePickup>(PickupBlueprint->GeneratedClass, InitialTranform);
     if (!TestNotNull("Pickup exists", Pickup)) return false;
 
     const auto CollisionComp = Pickup->FindComponentByClass<USphereComponent>();
@@ -69,24 +68,21 @@ bool FHealthCollisionShouldBeSetupCorrectly::RunTest(const FString& Parameters)
     return true;
 }
 
-bool FHealthMeshShouldBeSetupCorrectly::RunTest(const FString& Parameters)
+bool FBasePickupCouldBeTaken::RunTest(const FString& Parameters)
 {
     LevelScope(FString(TestLevelName));
 
     UWorld* TestWorld = GetTestGameWorld();
     if (!TestNotNull("World exists", TestWorld)) return false;
 
-    const UBlueprint* PickupBlueprint = LoadObject<UBlueprint>(nullptr, *FString(HealthBPName));
+    const UBlueprint* PickupBlueprint = LoadObject<UBlueprint>(nullptr, *FString(BPName));
     if (!TestNotNull("PickupBlueprint exists", PickupBlueprint)) return false;
 
     const FTransform InitialTranform{FVector{100.0f, 100.0f, 130.0f}};
-    const ASTUHealthPickup* Pickup = TestWorld->SpawnActor<ASTUHealthPickup>(PickupBlueprint->GeneratedClass, InitialTranform);
+    const ASTUBasePickup* Pickup = TestWorld->SpawnActor<ASTUBasePickup>(PickupBlueprint->GeneratedClass, InitialTranform);
     if (!TestNotNull("Pickup exists", Pickup)) return false;
 
-    const auto MeshComp = Pickup->FindComponentByClass<UStaticMeshComponent>();
-    if (!TestNotNull("StaticMesh exists", MeshComp)) return false;
-
-    TestTrueExpr(MeshComp->GetCollisionEnabled() == ECollisionEnabled::NoCollision);
+    TestTrueExpr(Pickup->CouldBeTaken());
 
     return true;
 }

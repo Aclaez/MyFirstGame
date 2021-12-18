@@ -5,16 +5,14 @@
 #include "CoreMinimal.h"
 #include "Engine/World.h"
 #include "Tests/AutomationCommon.h"
-#include <Engine/World.h>
-#include <Engine/Blueprint.h>
+#include "Engine/World.h"
+#include "Engine/Blueprint.h"
 
 namespace STU
 {
 namespace Tests
 {
 constexpr char* PlayerBPName = "Blueprint'/Game/Player/BP_STUPlayerCharacter.BP_STUPlayerCharacter'";
-constexpr char* AmmoBPName = "Blueprint'/Game/Pickups/BP_STUAmmoPickup.BP_STUAmmoPickup'";
-constexpr char* HealthBPName = "Blueprint'/Game/Pickups/BP_STUHealthPickup.BP_STUHealthPickup'";
 constexpr char* TestLevelName = "/Game/Levels/TestLevel";
 
 template <typename T>

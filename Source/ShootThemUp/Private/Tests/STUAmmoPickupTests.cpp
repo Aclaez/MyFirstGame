@@ -24,6 +24,11 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAmmoMeshShouldBeSetupCorrectly, "STUGame.Picku
 
 using namespace STU::Tests;
 
+namespace
+{
+constexpr char* AmmoBPName = "Blueprint'/Game/Pickups/BP_STUAmmoPickup.BP_STUAmmoPickup'";
+}
+
 bool FAmmoPickupCouldBeCreated::RunTest(const FString& Parameters)
 {
     LevelScope(FString(TestLevelName));
