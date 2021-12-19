@@ -1,5 +1,7 @@
 // Shoot Them Up Game, All Rights Reserved.
 
+#if WITH_AUTOMATION_TESTS
+
 #include "Tests/STURespawnComponentTests.h"
 #include "CoreMinimal.h"
 #include "Misc/AutomationTest.h"
@@ -27,3 +29,5 @@ bool FRespawnShouldNotWork::RunTest(const FString& Parameters)
 
     return true;
 }
+
+#endif
