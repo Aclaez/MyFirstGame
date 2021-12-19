@@ -60,8 +60,6 @@ bool FAICharacterHealthShouldBeSetupCorrectly::RunTest(const FString& Parameters
     TestTrueExpr(HealthWidgetComp->GetWidgetSpace() == EWidgetSpace::Screen);
     TestTrueExpr(HealthWidgetComp->GetDrawAtDesiredSize());
 
-    ADD_LATENT_AUTOMATION_COMMAND(FWaitLatentCommand(0.5f));
-
     return true;
 }
 
